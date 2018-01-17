@@ -64,7 +64,7 @@
 <!--------------   Home Icon -------------->
   <div class="absolute top-0 right-0 bottom-0 h-100 flex flex-column pa4">
     <div class="flex items-center pv3">
-      <button class="flex-auto bn bg-transparent" @click="openWindow('welcome')">
+      <button class="flex-auto bn bg-transparent" @click="openWindow('home')">
         <figure class="mt0 mh0 mb3 w3 h3 db center icon home"></figure>
         <h4 class="ma0">Home</h4>
       </button>
@@ -150,12 +150,7 @@
 
 
 
-  <!---------- Welcome window ---------------->
-<script type="text/x-template" id="welcome-template">
-	<div class="measure">
-  	<p class="mt0">Blockchain PlayGround!!!</p>
-    </div>
-</script>
+
 
 
 
@@ -163,7 +158,7 @@
   <script type="text/x-template" id="codeditor-template">
       <div class="measure">
           <p class="mt0"><h1>The code editor!!!</h1></p>
-          <button onclick="createNewAccountFunc()">account</button>
+
           <h3>Right click inside the editor to begin</h3>
           <h4>You will see the blinking after right clicking</h4>
 
@@ -172,7 +167,6 @@
               <div id="js"></div>
               <button onclick="runJavascript()">run</button>
           </div>
-
           <div>
               <iframe id="output" srcdoc="<p>Blockchain playground</p>"></iframe>
           </div>
@@ -185,8 +179,11 @@
 
 
 
-  <!---------- Steps window ---------------->
-<script type="text/x-template" id="steps-template">
+
+
+
+  <!---------- Home window ---------------->
+<script type="text/x-template" id="home-template">
 	<div class="measure">
         <h3>Blockchain playground</h3>
         <div id="instructions">
@@ -233,7 +230,7 @@
 
 
 
-  <!----------Countdown App      I dont think I will use this  ------------>
+  <!----------Countdown App      I don't think I will use this  ------------>
 
   <!------
 <script src='https://cdn.rawgit.com/HugoGiraudel/Countdown.js/a88b61fc/countdown.min.js'>

@@ -15,10 +15,6 @@ let Codeeditor = {
 };
 
 
-let Steps = {
-    template: '#steps-template'
-};
-
 //let Calendar = {template: '#calendar-template', mounted: function mounted() {new Countdown({selector: '#timeLeft', dateEnd: new Date('Dec 1, 2018 18:00:00'), msgPattern: '{days} days, {hours} hours, {minutes} minutes, {seconds} seconds!'});}};
 
 const triggerMouseEvent = function triggerMouseEvent(node, eventType) {
@@ -27,32 +23,25 @@ const triggerMouseEvent = function triggerMouseEvent(node, eventType) {
   node.dispatchEvent(clickEvent);
 };
 
+
+
 const SITE_CONTENT = [{
-    content: 'Im the home window',
-    title: 'Home',
-    id: 'home',
-    isShowing: false,
-    comp: Home
-    }, {
   content: 'Im the Code Editor window',
   title: 'Codeeditor',
   id: 'codeeditor',
   isShowing: true,
   comp: Codeeditor
-}, {
-  content: 'Im the Tutorials window',
-  title: 'Tutorials',
-  id: 'home',
-  isShowing: false,
-  comp: Home
-}, {
-    content: 'Im the Steps window',
-    title: 'Steps',
-    id: 'steps',
+},{
+    content: 'Im the home window',
+    title: 'Home',
+    id: 'home',
     isShowing: true,
-    comp: Steps
+    comp: Home
 }];
     //{content: 'Im the calendar window', title: 'Calendar', id: 'calendar',isShowing: false, comp: Calendar}];
+
+
+
 
 Vue.component('draggable-window', {
   template: '#draggable-window',
@@ -121,7 +110,7 @@ new Vue({
       }).size().value();
 
       if (closedWindowCount === SITE_CONTENT.length) {
-        this.focusWindow('Nebulas');
+        this.focusWindow('Home');
       }
     },
     focusWindow: function focusWindow(title) {
@@ -192,9 +181,9 @@ let instructionsVueInstance = new Vue({
 
 var stepCount = 0;
 var steps = [
-    "Step 1 Create account." + "<button onclick='createExampleAccount()'>" + "Generate Account"+ "</button>",
-    "Step 1 Create account." + "<button onclick='createNewAccountFunc()'>" + "Generate Account"+ "</button>", "Step 2 check balance",
-    "Step 3 Send a transaction.",
+    "Welcome to the Tutorial ",
+    "Step 1 Create account." + "<button onclick='createNewAccountFuncNeb()'>" + "Generate Account Neb" + "</button>",
+    "Step 2 account Status." + "<button onclick='getAccountStateFuncNeb()'>" + "Account status"+ "</button>",
     "Step 4 Drink some coffee.",
     "Step 5 take a break",
     "Step 6 take a walk"

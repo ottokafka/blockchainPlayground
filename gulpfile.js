@@ -15,6 +15,7 @@ gulp.task('watch',['sync', 'sass'], function(){
     gulp.watch('js/codeEditor.js', browserSync.reload);
     gulp.watch('index.html', browserSync.reload);
     gulp.watch('js/index.js', browserSync.reload);
+    gulp.watch('js/nebApi.js', browserSync.reload);
 
 
 });
