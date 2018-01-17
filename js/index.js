@@ -6,17 +6,14 @@ let eventHub = new Vue({
   }
 });
 
-let Welcome = {
-  template: '#welcome-template'
+let Home = {
+  template: '#home-template'
 };
 
 let Codeeditor = {
     template: '#codeditor-template'
 };
 
-let Home = {
-  template: '#home-template'
-};
 
 let Steps = {
     template: '#steps-template'
@@ -31,11 +28,11 @@ const triggerMouseEvent = function triggerMouseEvent(node, eventType) {
 };
 
 const SITE_CONTENT = [{
-    content: 'Im the welcome window',
-    title: 'Welcome',
-    id: 'welcome',
+    content: 'Im the home window',
+    title: 'Home',
+    id: 'home',
     isShowing: false,
-    comp: Welcome
+    comp: Home
     }, {
   content: 'Im the Code Editor window',
   title: 'Codeeditor',
@@ -167,8 +164,8 @@ let instructionsVueInstance = new Vue({
     el: '#instructions',
     data: {
         stepCount: 0,
-        welcomeMessage: "Welcome to Nebulas playground",
-        steps: ["Welcome to Nebulas playground", "Step 1 Create account.", "Step 2 check balance", "Step 3 Send a transaction.", "Step 4 Drink some coffee.", "Step 5 take a break"]
+        welcomeMessage: "Home to Nebulas playground",
+        steps: ["Home to Nebulas playground", "Step 1 Create account.", "Step 2 check balance", "Step 3 Send a transaction.", "Step 4 Drink some coffee.", "Step 5 take a break"]
     },
 
     methods:{
@@ -194,7 +191,14 @@ let instructionsVueInstance = new Vue({
 //todo: add some pictures into the array: give examples of pressing the button and creating an address. 
 
 var stepCount = 0;
-var steps = ["To begin click Next","Step 1 Create account.", "Step 2 check balance", "Step 3 Send a transaction.", "Step 4 Drink some coffee.", "Step 5 take a break", "Step 6 take a walk"]
+var steps = [
+    "Step 1 Create account." + "<button onclick='createExampleAccount()'>" + "Generate Account"+ "</button>",
+    "Step 1 Create account." + "<button onclick='createNewAccountFunc()'>" + "Generate Account"+ "</button>", "Step 2 check balance",
+    "Step 3 Send a transaction.",
+    "Step 4 Drink some coffee.",
+    "Step 5 take a break",
+    "Step 6 take a walk"
+];
 
 function nextStep() {
     stepCount = stepCount + 1;
@@ -216,6 +220,17 @@ function backStep() {
     }
 
 }
+
+
+
+
+
+
+
+
+
+
+
 
 
 
