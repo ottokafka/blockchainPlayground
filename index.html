@@ -7,7 +7,7 @@
 
 
 
-    <!-----  Main View libraries ------------------>
+    <!-----------  Main View libraries ------------------>
   <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:300,400,700" rel="stylesheet">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
@@ -23,7 +23,8 @@
 
 
 
-    <!----- code mirror libraries ------------------>
+    <!------------- code mirror libraries ------------------>
+
     <script src="codeMirror/codemirror.js"></script>
     <link rel="stylesheet" href="codeMirror/codemirror.css">
     <script src="codeMirror/javascript.js"></script>
@@ -35,7 +36,6 @@
 
   
 </head>
-
 <body>
 
   <div class="w-100 vh-100 relative" id="desktop">
@@ -56,40 +56,63 @@
     </transition-group>
   </div>
 
+
+
+
 <!--------------   welcome Icon -------------->
   <div class="absolute top-0 right-0 bottom-0 h-100 flex flex-column pa4">
     <div class="flex items-center pv3">
       <button class="flex-auto bn bg-transparent" @click="openWindow('welcome')">
-        <figure class="mt0 mh0 mb3 w3 h3 db center icon me"></figure>
+        <figure class="mt0 mh0 mb3 w3 h3 db center icon home"></figure>
         <h4 class="ma0">Welcome</h4>
       </button>
     </div>
 
-      <!--------------   Code Editor Icon -------------->
+
+
+
+
+
+
+      <!--------------   Code Editor Icon Javascript Icon -------------->
+
+
       <div class="flex items-center pv3">
           <button class="flex-auto bn bg-transparent" @click="openWindow('codeeditor')">
-              <figure class="mt0 mh0 mb3 w3 h3 db center icon writing"></figure>
+              <figure class="mt0 mh0 mb3 w3 h3 db center icon javascript"></figure>
               <h4 class="ma0">Javascript</h4>
           </button>
       </div>
 
 
+
+
+      <!-------       Tutorials Coming soon --------------->
+
+      <!--
     <div class="flex items-center pv3">
       <button class="flex-auto bn bg-transparent" @click="openWindow('home')">
         <figure class="mt0 mh0 mb3 w3 h3 db center icon home"></figure>
         <h4 class="ma0">Tutorials</h4>
       </button>
     </div>
+    -->
 
 
+      <!--------------  Calendar Icon ------------------------>
+
+      <!--
       <div class="flex items-center pv3">
           <button class="flex-auto bn bg-transparent" @click="openWindow('calendar')">
               <figure class="mt0 mh0 mb3 w3 h3 db center icon calendar"></figure>
               <h4 class="ma0">Calendar</h4>
           </button>
       </div>
-  </div>
+      -->
 
+
+
+  </div>
 </div>
 
 <script type="x/template" id="draggable-window">
@@ -165,7 +188,13 @@
 </script>
 
 
+
+
+
+
   <!---------- Calander countdown window ---------------->
+
+  <!--
 <script type="text/x-template" id="calendar-template">
 	<div class="measure-wide">
   	<p class="mt0">Countdown until next <strong>Blockchain becomes the web 3.0</strong></p>
@@ -174,6 +203,7 @@
     <div class="f4" id="timeLeft"></div>
   </div>
 </script>
+-->
 
 
 
@@ -183,13 +213,16 @@
   <script src="https://cdn.jsdelivr.net/npm/vue"></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/interact.js/1.2.8/interact.min.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js'></script>
+
+  <!----------Countdown App ------------>
+
+  <!------
 <script src='https://cdn.rawgit.com/HugoGiraudel/Countdown.js/a88b61fc/countdown.min.js'>
-</script>
+</script> ---->
 
 
     <script src="js/index.js"></script>
   <script src="js/codeEditor.js"></script>
-  <!--- <script src="js/steps.js"></script> -->
 
 </body>
 </html>

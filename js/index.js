@@ -22,16 +22,7 @@ let Steps = {
     template: '#steps-template'
 };
 
-let Calendar = {
-  template: '#calendar-template',
-  mounted: function mounted() {
-    new Countdown({
-      selector: '#timeLeft',
-      dateEnd: new Date('Dec 1, 2018 18:00:00'),
-      msgPattern: '{days} days, {hours} hours, {minutes} minutes, {seconds} seconds!'
-    });
-  }
-};
+//let Calendar = {template: '#calendar-template', mounted: function mounted() {new Countdown({selector: '#timeLeft', dateEnd: new Date('Dec 1, 2018 18:00:00'), msgPattern: '{days} days, {hours} hours, {minutes} minutes, {seconds} seconds!'});}};
 
 const triggerMouseEvent = function triggerMouseEvent(node, eventType) {
   let clickEvent = document.createEvent('MouseEvents');
@@ -63,14 +54,8 @@ const SITE_CONTENT = [{
     id: 'steps',
     isShowing: true,
     comp: Steps
-},
-    {
-  content: 'Im the calendar window',
-  title: 'Calendar',
-  id: 'calendar',
-  isShowing: false,
-  comp: Calendar
 }];
+    //{content: 'Im the calendar window', title: 'Calendar', id: 'calendar',isShowing: false, comp: Calendar}];
 
 Vue.component('draggable-window', {
   template: '#draggable-window',
@@ -203,6 +188,11 @@ let instructionsVueInstance = new Vue({
 });
 
 
+
+
+//----------- Using plain javascript for the instructions-----------
+//todo: add some pictures into the array: give examples of pressing the button and creating an address. 
+
 var stepCount = 0;
 var steps = ["To begin click Next","Step 1 Create account.", "Step 2 check balance", "Step 3 Send a transaction.", "Step 4 Drink some coffee.", "Step 5 take a break", "Step 6 take a walk"]
 
@@ -222,7 +212,7 @@ function backStep() {
     document.getElementById("message").innerHTML = "<h3>" + steps[stepCount] + "</h3>";
 
     if (stepCount == 0){
-        stepCount = 5
+        stepCount = 6
     }
 
 }

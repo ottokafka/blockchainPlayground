@@ -50,7 +50,7 @@ function render() {
 
 // EDITORS
 var js_editor = CodeMirror(document.getElementById("js"),{
-    value: "function test() { \n\talert('Hello Nebulas');\n\t \n}" + "test()",
+    value: "function test() { \n\talert('Hello Blockchain World');\n\t \n}" + "test()",
     mode: "javascript",
     theme: "dracula",
     lineNumbers: true
