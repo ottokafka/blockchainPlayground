@@ -185,10 +185,17 @@ var stepCount = 0;
 var steps = [
     "Welcome to the Tutorial ",
     "Step 1 Create account." + "<button onclick='createNewAccountFuncWeb()'>" + "Generate Account Neb" + "</button>",
+
     "Step 2 Claim Nas." + "<br>"+ "<button onclick='claimNas()'>" + "Claim Nas"+ "</button>",
-    "Step 3 account Status." + "<br>"+ "<button onclick='getAccountStateFuncWeb()'>" + "Account status"+ "</button>",
-    "Step 3 unlock you account." + "<br>"+ "<button onclick='unlockAccountFuncNeb()'>" + "unlock"+ "</button>" + "<p>" + "By default your account will be locked for security purposes"+ "</p>",
-    "Step 4 Send a Transaction." + "<br>"+ "<button onclick='transactionFuncNeb()'>" + "Send Transaction"+ "</button>" + "<p>" + "This will send some funds to your newly created account"+ "</p>",
+
+    "Step 3 Check account Balance." + "<br>"+ "<button onclick='getAccountStateFuncWeb()'>" + "Account Balance"+ "</button>",
+
+    "Step 4 Prepare a transaction." + "<br>"+ "<button onclick='generateTransaction()'>" + "Generate txHash"+ "</button>" + "<p>" + "We need to generate a txHash in order to send a transaction"+ "</p>",
+
+    "Step 5 Sign It." + "<br>"+ "<button onclick='signTransaction()'>" + "Sign Transaction"+ "</button>" + "<p>" + "This will send some funds to your newly created account"+ "</p>",
+
+    "Step 6 Send a Transaction." + "<br>"+ "<button onclick='transactionFuncNeb()'>" + "Send Transaction"+ "</button>" + "<p>" + "This will send some funds to your newly created account"+ "</p>",
+
     "Step 5 Get a Receipt." + "<br>"+ "<button onclick='getTransactionReceiptFuncNeb()'>" + "Receipt "+ "</button>" + "<p>" + "Your info"+ "</p>",
 ];
 

@@ -66,7 +66,7 @@ function claimNas() {
     }, 5000);
 }
 
-
+//------------ Get the balance ------------
 
 function getAccountStateFuncWeb() {
     //var from = "1a263547d167c74cf4b8f9166cfa244de0481c514a45aa2c";
@@ -80,7 +80,38 @@ function getAccountStateFuncWeb() {
     console.log(state.nonce);
 }
 
+//--------- sign and generate transaction -----
 
+function generateTransaction() {
+    var testnetchainID = 1001;
+    tx = new Transaction(testnetchainID, generatedAddressArray[0], to, neb.nasToBasic("1"), parseInt(state.nonce)+1);
+    //
+    console.log(tx);
+    console.log(tx.toProtoString());
+    //document.getElementById('transaction').value = tx.toString();
+    //document.getElementById('rawdata').value = tx.toProtoString();
+}
+
+
+function signTransaction() {
+    //tx.signTransaction();
+    console.log(tx.signTransaction());
+}
+
+function submitTransaction() {
+    var resp = neb.api.sendRawTransaction(tx.toProtoString());
+    txhash = resp.txhash;
+    document.getElementById('receipt').value = txhash;
+}
+
+
+
+function receiptTransaction() {
+    neb.api.getTransactionReceipt(txhash, function (err, resp) {
+
+        //document.getElementById('receipt').value = JSON.stringify(resp);
+    });
+}
 
 
 function accountTest() {
