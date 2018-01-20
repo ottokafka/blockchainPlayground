@@ -6,8 +6,40 @@ body {
 }
 
 button {
-  font-family: 'Roboto Mono';
+  display: inline-block;
+  padding: 15px 25px;
+  margin: 15px;
+  font-size: 24px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
 }
+
+button:hover {background-color: #3e8e41}
+
+button:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
+h3{
+  color: grey;
+}
+
+h5{
+  color: silver;
+}
+
+
+
+
 
 #desktop:before {
 
@@ -45,8 +77,12 @@ nav {
   top: 4rem;
 }
 
+
 .window {
   min-height: 300px;
+  min-width: 300px;
+  border-radius: 8%;
+
 }
 
 .fade-enter-active, .fade-leave-active {

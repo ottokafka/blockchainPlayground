@@ -1,17 +1,22 @@
 /**
  * Created by automacair on 1/15/18.
  */
-var Account = require('account');
-var Neb = require('neb');
+var Account = require('wallet').Account;
+var Neb = require('wallet').Neb;
 var neb = new Neb();
-var from = "1a263547d167c74cf4b8f9166cfa244de0481c514a45aa2c"
+neb.setRequest(new Neb.HttpRequest("https://testnet.nebulas.io"));
+var Transaction = require('wallet').Transaction;
+//var from = "1a263547d167c74cf4b8f9166cfa244de0481c514a45aa2c";
+var from = "333cb3ed8c417971845382ede3cf67a0a96270c05fe2f700";
 var to = "333cb3ed8c417971845382ede3cf67a0a96270c05fe2f700";
 var value = "100000";
 var nonce = 1;
 var gasPrice = "1000000";
 var gasLimit = "2000000";
-var password = "password";
+var password = "passphrase";
 var generatedAddressArray = [];
+var generatedTxhash = [];
+var generatedContractAddress = [];
 
 
 //----------------   Remote Procedure Calls (RPCs)--------
@@ -29,21 +34,50 @@ var generatedAddressArray = [];
 
 function createNewAccountFuncWeb() {
 
-    var newAccount = Account.NewAccount(password);
+    var newAccount = Account.NewAccount();
     var savedGeneratedAccount = newAccount.getAddressString();
-
     generatedAddressArray.push(savedGeneratedAccount);
 
-    document.getElementById("message").innerHTML = "<textarea>" + generatedAddressArray[0] + "</textarea>" + "<br>" + "<h5>" + "This is your new generated account address by the web"+ "</h5>"
+    document.getElementById("message").innerHTML = "<textarea>" + generatedAddressArray[0] + "</textarea>" + "<br>" + "<h5>" + "This is your new generated account address"+ "</h5>";
     console.log(generatedAddressArray[0]);
+
 }
 
 
-function getAccountStateFuncWeb() {
+function claimNas() {
+    var email = Math.random() + "test@demo.io";
+    var url = "https://testnet.nebulas.io/claim/api/claim/"+ email+ "/"+ generatedAddressArray[0] +"/";
+    var request = new window.XMLHttpRequest();
+    request.open("GET", url, false);
+    request.send();
+    result = JSON.parse(request.responseText);
 
+    document.getElementById("message").innerHTML = "<h3>" + "please wait " + "</h3>" + "<i class='material-icons'>access_time</i>" + "<h5>"+ "Getting you tokens Now" + "</h5>";
+
+    setTimeout(function () {
+        state = neb.api.getAccountState(generatedAddressArray[0]);
+
+
+       // document.getElementById("message").innerHTML = "<h5>" + "Your Balance: " + state.balance + "</h5>" + "<h6>" + "nonce " + state.nonce + "</h6>";
+
+        document.getElementById("message").innerHTML = "<h5>" + "Your Tokens have been received" +  "</h5>" + "<h6>" + " Great Job! " + "</h6>";
+        console.log(state.balance);
+        console.log(state.nonce);
+    }, 5000);
+}
+
+
+
+function getAccountStateFuncWeb() {
     //var from = "1a263547d167c74cf4b8f9166cfa244de0481c514a45aa2c";
-    var accountState = Account.getAccountState(from)
-    console.log(JSON.stringify(accountState));
+    //var accountState = Account.getAccountState(generatedAddressArray[0]);
+
+    document.getElementById("message").innerHTML = "<h5>" + "Your Balance: " + state.balance + "</h5>" + "<h6>" + "nonce " + state.nonce + "</h6>";
+
+    //document.getElementById("message").innerHTML = "<h5>" + generatedAddressArray[0] + "</h5>" + "<br>" + "<h5>" + "This should show you your balance and nonce"+ "</h5>"
+
+    console.log(state.balance);
+    console.log(state.nonce);
 }
 
 
@@ -72,8 +106,8 @@ function accountTest() {
 
 function createNewAccountFuncNeb() {
 
-    var newAccount = neb.admin.newAccount(password);
-    var savedGeneratedAccount = newAccount.address;
+    var newAccount = neb.api.NewAccount();
+    var savedGeneratedAccount = newAccount.getAddressString();
     generatedAddressArray.push(savedGeneratedAccount);
 
     document.getElementById("message").innerHTML = "<textarea>" + generatedAddressArray[0] + "</textarea>" + "<br>" + "<h5>" + "This is your new generated account address"+ "</h5>";
@@ -84,6 +118,53 @@ function createNewAccountFuncNeb() {
 function getAccountStateFuncNeb() {
     var accountState = neb.api.getAccountState(generatedAddressArray[0]);
     console.log(JSON.stringify(accountState));
+
+    document.getElementById("message").innerHTML = "<textarea>" + "Balance: " + accountState.balance + " nouce " + accountState.nonce + "</textarea>" + "<br>" + "<h5>" + "As you can see the balance is: '0' "+ "in our newly created account" +"</h5>"
+
+    //todo: create a if statement if the balance is 0 display you have 0 but if balance is > than 0 display you have this much balance
+}
+
+function unlockAccountFuncNeb() {
+    //curl -i -H Accept:application/json -X POST http://localhost:8685/v1/account/unlock -d '{"address":"8a209cec02cbeab7e2f74ad969d2dfe8dd24416aa65589bf", "passphrase":"passphrase"}'
+
+    var unlockTheAccount = neb.admin.unlockAccount(generatedAddressArray[0], password);
+    console.log(JSON.stringify(unlockTheAccount));
+
+    var unlockTheAccount2 = neb.admin.unlockAccount(from, password);
+    console.log(JSON.stringify(unlockTheAccount2));
+
+    document.getElementById("message").innerHTML = "<h3>" + "Unlocked "+ "</h3>" + "<br>" + "<h5>" + "Great you just unlocked your account"+ "</h5>"
+
+}
+
+
+function transactionFuncNeb() {
+
+    var contract = {
+        "source": "demo playground",
+        "sourceType": "js",
+        "args": "[\"0\",\"otto\"]"
+    };
+    //var transaction = neb.api.sendTransaction(from, generatedAddressArray[0],value,nonce + 1,gasPrice,gasLimit,contract);
+
+    var transaction = neb.api.sendTransaction(from, generatedAddressArray[0],value,nonce + 1, gasPrice, gasLimit);
+    console.log(JSON.stringify(transaction));
+
+    generatedTxhash.push(transaction.txhash)
+    generatedContractAddress.push(transaction.contract_address)
+
+    console.log(generatedTxhash);
+    console.log(generatedContractAddress);
+}
+
+
+
+function getTransactionReceiptFuncNeb() {
+    var transactionReceipt = neb.api.getTransactionReceipt(generatedTxhash[0]);
+    console.log(generatedTxhash[0]);
+
+    console.log(JSON.stringify(transactionReceipt));
+
 }
 
 
@@ -116,17 +197,9 @@ function accountsFunc() {
 
 
 
-function transactionFunc() {
 
-    var contract = {
-        "source": "demo playground",
-        "sourceType": "js",
-        "args": "[\"0\",\"otto\"]"
-    };
 
-    var transaction = neb.api.sendTransaction(from,to,value,nonce,gasPrice,gasLimit,contract);
-    console.log(JSON.stringify(transaction));
-}
+
 
 function gasPriceFunc() {
 
@@ -146,7 +219,6 @@ function accounts() {
     var accounts = neb.api.accounts();
 
     console.log(JSON.stringify(accounts));
-
 }
 //accounts()
 
@@ -161,12 +233,7 @@ function accounts() {
 
 
 
-function unlockAccountFunc() {
-    //curl -i -H Accept:application/json -X POST http://localhost:8685/v1/account/unlock -d '{"address":"8a209cec02cbeab7e2f74ad969d2dfe8dd24416aa65589bf", "passphrase":"passphrase"}'
 
-    var unlockTheAccount = neb.admin.unlockAccount(from);
-
-}
 
 
 
@@ -186,7 +253,7 @@ function sendTransaction() {
         "sourceType": "js",
         "args": "[\"0\",\"otto\"]"
     };
-    var resp = neb.api.estimateGas(from, to, value, parseInt(state.nonce)+1,"0", "0", contract);
+    var resp = neb.api.estimateGas(from, to, value, parseInt(state.nonce +1),"0", "0", contract);
     console.log(JSON.stringify(resp));
 }
 
@@ -197,3 +264,26 @@ function estimateTheGasPrice() {
 
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -35,6 +35,10 @@
     <link rel="stylesheet" href="codeMirror/show-hint.css">
     <link rel="stylesheet" href="codeMirror/dracula.css">
 
+    <script
+            src="https://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+            crossorigin="anonymous"></script>
 
   
 </head>
@@ -120,14 +124,10 @@
 <script type="x/template" id="draggable-window">
 	<div :id="id" class="window absolute bg-white ba bw2 b--black">
     <div class="bb b--black bw2 flex items-center pa1">
-      <button @click="closeWindow" class="bg-transparent bn dim flex items-center">
+      <input type="button" class="bg-transparent bn dim flex items-center">
 
 
-
-
-				<!-- GOOGLES material-design-icons  -->
-
-          <i class="material-icons mr1 f5">backspace</i>
+          <i type="button" @click="closeWindow" class="material-icons mr1 f5">backspace</i>
 
           <!--
           <i class="material-icons mr1 f5">forward</i>
@@ -140,7 +140,7 @@
         <i class="material-icons f6">radio_button_unchecked</i>
 -->
 
-      </button>
+      </input>
     </div>
     <div class="pa3">
     	<div :is="content"></div>
@@ -165,6 +165,7 @@
           <!---------- Code Editor  ---------------->
           <div class="box1Example17">
               <div id="js"></div>
+              <button onclick="loadEditor()">Load Javascript</button>
               <button onclick="runJavascript()">run</button>
           </div>
           <div>
@@ -237,9 +238,11 @@
 </script> ---->
 
 
-
+<!--
   <script src="nebulas/neb-account.js"></script>
   <script src="nebulas/neb.js"></script>
+  -->
+  <script src="nebulas/wallet.js"></script>
   <script src="js/nebApi.js"></script>
     <script src="js/index.js"></script>
   <script src="js/codeEditor.js"></script>

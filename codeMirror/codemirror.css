@@ -4,9 +4,10 @@
   /* Set height, width, borders, and global font properties here */
   font-family: monospace;
   height: 150px;
-  width: 300px;
+  width: 330px;
   color: black;
   direction: ltr;
+  border-radius: 10%;
 }
 
 /* PADDING */

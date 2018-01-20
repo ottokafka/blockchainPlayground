@@ -147,7 +147,7 @@ new Vue({
 
 
 
-
+/*
 
 let instructionsVueInstance = new Vue({
     el: '#instructions',
@@ -173,6 +173,8 @@ let instructionsVueInstance = new Vue({
         }}
 });
 
+*/
+
 
 
 
@@ -182,12 +184,14 @@ let instructionsVueInstance = new Vue({
 var stepCount = 0;
 var steps = [
     "Welcome to the Tutorial ",
-    "Step 1 Create account." + "<button onclick='createNewAccountFuncNeb()'>" + "Generate Account Neb" + "</button>",
-    "Step 2 account Status." + "<button onclick='getAccountStateFuncNeb()'>" + "Account status"+ "</button>",
-    "Step 4 Drink some coffee.",
-    "Step 5 take a break",
-    "Step 6 take a walk"
+    "Step 1 Create account." + "<button onclick='createNewAccountFuncWeb()'>" + "Generate Account Neb" + "</button>",
+    "Step 2 Claim Nas." + "<br>"+ "<button onclick='claimNas()'>" + "Claim Nas"+ "</button>",
+    "Step 3 account Status." + "<br>"+ "<button onclick='getAccountStateFuncWeb()'>" + "Account status"+ "</button>",
+    "Step 3 unlock you account." + "<br>"+ "<button onclick='unlockAccountFuncNeb()'>" + "unlock"+ "</button>" + "<p>" + "By default your account will be locked for security purposes"+ "</p>",
+    "Step 4 Send a Transaction." + "<br>"+ "<button onclick='transactionFuncNeb()'>" + "Send Transaction"+ "</button>" + "<p>" + "This will send some funds to your newly created account"+ "</p>",
+    "Step 5 Get a Receipt." + "<br>"+ "<button onclick='getTransactionReceiptFuncNeb()'>" + "Receipt "+ "</button>" + "<p>" + "Your info"+ "</p>",
 ];
+
 
 function nextStep() {
     stepCount = stepCount + 1;
