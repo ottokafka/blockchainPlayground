@@ -7,8 +7,8 @@ var neb = new Neb();
 neb.setRequest(new Neb.HttpRequest("https://testnet.nebulas.io"));
 var Transaction = require('wallet').Transaction;
 //var from = "1a263547d167c74cf4b8f9166cfa244de0481c514a45aa2c";
-var from = "333cb3ed8c417971845382ede3cf67a0a96270c05fe2f700";
-var to = "333cb3ed8c417971845382ede3cf67a0a96270c05fe2f700";
+//var from = "333cb3ed8c417971845382ede3cf67a0a96270c05fe2f700";
+//var to = "333cb3ed8c417971845382ede3cf67a0a96270c05fe2f700";
 var value = "100000";
 var nonce = 1;
 var gasPrice = "1000000";
@@ -17,7 +17,12 @@ var password = "passphrase";
 var generatedAddressArray = [];
 var generatedTxhash = [];
 var generatedContractAddress = [];
+var generatedPublicKey = [];
+var generatedPrivateKey = [];
+var generatedAccountStateBalance = [];
 
+var account, state, tx, txhash;
+var txArray = [];
 
 //----------------   Remote Procedure Calls (RPCs)--------
 
@@ -30,23 +35,25 @@ var generatedContractAddress = [];
 
 //------------------------  Web generated  -------------------
 
-
+//------------ Generate Account ---------
 
 function createNewAccountFuncWeb() {
 
-    var newAccount = Account.NewAccount();
-    var savedGeneratedAccount = newAccount.getAddressString();
-    generatedAddressArray.push(savedGeneratedAccount);
+    account = Account.NewAccount();
 
-    document.getElementById("message").innerHTML = "<textarea>" + generatedAddressArray[0] + "</textarea>" + "<br>" + "<h5>" + "This is your new generated account address"+ "</h5>";
-    console.log(generatedAddressArray[0]);
+    document.getElementById("message").innerHTML = "<textarea>" + account.getAddressString() + "</textarea>" + "<br>" + "<h5>" + "This is your new generated account address"+ "</h5>";
 
+    console.log(account.getAddressString());
+    console.log(account.getPrivateKeyString());
+    console.log(account.getPublicKeyString());
 }
 
 
+// --------------- Claim Nas ----------------
+
 function claimNas() {
     var email = Math.random() + "test@demo.io";
-    var url = "https://testnet.nebulas.io/claim/api/claim/"+ email+ "/"+ generatedAddressArray[0] +"/";
+    var url = "https://testnet.nebulas.io/claim/api/claim/"+ email+ "/"+ account.getAddressString() +"/";
     var request = new window.XMLHttpRequest();
     request.open("GET", url, false);
     request.send();
@@ -55,10 +62,8 @@ function claimNas() {
     document.getElementById("message").innerHTML = "<h3>" + "please wait " + "</h3>" + "<i class='material-icons'>access_time</i>" + "<h5>"+ "Getting you tokens Now" + "</h5>";
 
     setTimeout(function () {
-        state = neb.api.getAccountState(generatedAddressArray[0]);
-
-
-       // document.getElementById("message").innerHTML = "<h5>" + "Your Balance: " + state.balance + "</h5>" + "<h6>" + "nonce " + state.nonce + "</h6>";
+       state = neb.api.getAccountState(account.getAddressString());
+        generatedAccountStateBalance.push(state);
 
         document.getElementById("message").innerHTML = "<h5>" + "Your Tokens have been received" +  "</h5>" + "<h6>" + " Great Job! " + "</h6>";
         console.log(state.balance);
@@ -66,50 +71,47 @@ function claimNas() {
     }, 5000);
 }
 
-//------------ Get the balance ------------
+//------------ Account balance ------------
 
 function getAccountStateFuncWeb() {
-    //var from = "1a263547d167c74cf4b8f9166cfa244de0481c514a45aa2c";
-    //var accountState = Account.getAccountState(generatedAddressArray[0]);
 
     document.getElementById("message").innerHTML = "<h5>" + "Your Balance: " + state.balance + "</h5>" + "<h6>" + "nonce " + state.nonce + "</h6>";
-
-    //document.getElementById("message").innerHTML = "<h5>" + generatedAddressArray[0] + "</h5>" + "<br>" + "<h5>" + "This should show you your balance and nonce"+ "</h5>"
 
     console.log(state.balance);
     console.log(state.nonce);
 }
 
-//--------- sign and generate transaction -----
+
+
+//--------- Generate txHash ------------
 
 function generateTransaction() {
     var testnetchainID = 1001;
-    tx = new Transaction(testnetchainID, generatedAddressArray[0], to, neb.nasToBasic("1"), parseInt(state.nonce)+1);
-    //
-    console.log(tx);
+    tx = new Transaction(testnetchainID, account, account, neb.nasToBasic("1"), parseInt(state.nonce)+1);
+
+    tx.signTransaction();
+//txArray.push(tx);
+
+    // ----------Note: You have to sign the transaction before displaying it:
+    document.getElementById("message").innerHTML = "<textarea>" + tx.toString() + "</textarea>" + "<h6>" + "You just created a txHash and signed the transaction "+ "</h6>";
+
+    console.log(tx.toString());
     console.log(tx.toProtoString());
-    //document.getElementById('transaction').value = tx.toString();
-    //document.getElementById('rawdata').value = tx.toProtoString();
 }
 
-
-function signTransaction() {
-    //tx.signTransaction();
-    console.log(tx.signTransaction());
-}
 
 function submitTransaction() {
     var resp = neb.api.sendRawTransaction(tx.toProtoString());
     txhash = resp.txhash;
-    document.getElementById('receipt').value = txhash;
-}
 
+    document.getElementById('message').innerHTML = "<textarea>" + txhash + "</textarea>" + "<h6>" + "You just created a txHash and signed the transaction "+ "</h6>";
+}
 
 
 function receiptTransaction() {
     neb.api.getTransactionReceipt(txhash, function (err, resp) {
 
-        //document.getElementById('receipt').value = JSON.stringify(resp);
+        document.getElementById('message').innerHTML = "<textarea>" + JSON.stringify(resp) + "</textarea>" + "<h6>" + "Here's your receipt "+ "</h6>";
     });
 }
 
@@ -137,9 +139,9 @@ function accountTest() {
 
 function createNewAccountFuncNeb() {
 
-    var newAccount = neb.api.NewAccount();
-    var savedGeneratedAccount = newAccount.getAddressString();
-    generatedAddressArray.push(savedGeneratedAccount);
+    var account = neb.api.NewAccount();
+    var account = account.getAddressString();
+    generatedAddressArray.push(account);
 
     document.getElementById("message").innerHTML = "<textarea>" + generatedAddressArray[0] + "</textarea>" + "<br>" + "<h5>" + "This is your new generated account address"+ "</h5>";
     console.log(generatedAddressArray[0]);

@@ -29,7 +29,7 @@ const SITE_CONTENT = [{
   content: 'Im the Code Editor window',
   title: 'Codeeditor',
   id: 'codeeditor',
-  isShowing: true,
+  isShowing: false,
   comp: Codeeditor
 },{
     content: 'Im the home window',
@@ -184,19 +184,17 @@ let instructionsVueInstance = new Vue({
 var stepCount = 0;
 var steps = [
     "Welcome to the Tutorial ",
-    "Step 1 Create account." + "<button onclick='createNewAccountFuncWeb()'>" + "Generate Account Neb" + "</button>",
+    "Step 1 Create account." + "<button onclick='createNewAccountFuncWeb()'>" + "Generate Account" + "</button>",
 
     "Step 2 Claim Nas." + "<br>"+ "<button onclick='claimNas()'>" + "Claim Nas"+ "</button>",
 
     "Step 3 Check account Balance." + "<br>"+ "<button onclick='getAccountStateFuncWeb()'>" + "Account Balance"+ "</button>",
 
-    "Step 4 Prepare a transaction." + "<br>"+ "<button onclick='generateTransaction()'>" + "Generate txHash"+ "</button>" + "<p>" + "We need to generate a txHash in order to send a transaction"+ "</p>",
+    "Step 4 Make TxHash and Sign." + "<br>"+ "<button onclick='generateTransaction()'>" + "Generate txHash and sign"+ "</button>" + "<p>" + "We need to generate a txHash in order to send a transaction"+ "</p>",
 
-    "Step 5 Sign It." + "<br>"+ "<button onclick='signTransaction()'>" + "Sign Transaction"+ "</button>" + "<p>" + "This will send some funds to your newly created account"+ "</p>",
+    "Step 5 Submit the Transaction." + "<br>"+ "<button onclick='submitTransaction()'>" + "Submit Transaction"+ "</button>" + "<p>" + "This will send some funds to your newly created account"+ "</p>",
 
-    "Step 6 Send a Transaction." + "<br>"+ "<button onclick='transactionFuncNeb()'>" + "Send Transaction"+ "</button>" + "<p>" + "This will send some funds to your newly created account"+ "</p>",
-
-    "Step 5 Get a Receipt." + "<br>"+ "<button onclick='getTransactionReceiptFuncNeb()'>" + "Receipt "+ "</button>" + "<p>" + "Your info"+ "</p>",
+    "Step 6 Get a Receipt." + "<br>"+ "<button onclick='receiptTransaction()'>" + "Receipt "+ "</button>" + "<p>" + "Your info"+ "</p>",
 ];
 
 
@@ -205,7 +203,7 @@ function nextStep() {
 
     document.getElementById("message").innerHTML = "<h3>" + steps[stepCount] + "</h3>";
 
-    if (stepCount == 6){
+    if (stepCount == steps.length - 1){
         stepCount = 0
     }
 }
@@ -216,7 +214,7 @@ function backStep() {
     document.getElementById("message").innerHTML = "<h3>" + steps[stepCount] + "</h3>";
 
     if (stepCount == 0){
-        stepCount = 6
+        stepCount = steps.length
     }
 
 }

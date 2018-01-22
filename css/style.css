@@ -1,3 +1,7 @@
+textarea {
+  height: 100%;
+  width: 100%; }
+
 body {
   background: #e6e6e6;
   font-family: 'Roboto Mono';
@@ -5,6 +9,7 @@ body {
   position: relative; }
 
 button {
+  font-family: 'Roboto Mono';
   display: inline-block;
   padding: 15px 25px;
   margin: 15px;
@@ -14,7 +19,7 @@ button {
   text-decoration: none;
   outline: none;
   color: #fff;
-  background-color: #4CAF50;
+  background-color: #000000;
   border: none;
   border-radius: 15px;
   box-shadow: 0 9px #999; }
