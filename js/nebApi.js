@@ -6,6 +6,29 @@ var Neb = require('wallet').Neb;
 var neb = new Neb();
 neb.setRequest(new Neb.HttpRequest("https://testnet.nebulas.io"));
 var Transaction = require('wallet').Transaction;
+
+
+
+
+function sumit() {
+    from =3453453452
+    to = 5345634563456
+    value
+
+    neb.api.call()
+
+
+
+    neb.setRequest(new Neb.HttpRequest("https://testnet.nebulas.io"));
+}
+
+
+
+
+
+
+
+
 //var from = "1a263547d167c74cf4b8f9166cfa244de0481c514a45aa2c";
 //var from = "333cb3ed8c417971845382ede3cf67a0a96270c05fe2f700";
 //var to = "333cb3ed8c417971845382ede3cf67a0a96270c05fe2f700";

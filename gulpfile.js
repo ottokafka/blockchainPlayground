@@ -16,6 +16,7 @@ gulp.task('watch',['sync', 'sass'], function(){
     gulp.watch('index.html', browserSync.reload);
     gulp.watch('js/index.js', browserSync.reload);
     gulp.watch('js/nebApi.js', browserSync.reload);
+    gulp.watch('codeMirror/codemirror.css', browserSync.reload);
 
 
 });
